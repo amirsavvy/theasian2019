@@ -1,0 +1,134 @@
+
+{% extends "website/base.html" %}
+<!-- {% load static %} -->
+
+{% block title %}Home{% endblock%}
+
+{% block content %}
+
+<section id="sliderSection">
+  <div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-8">
+      <div class="slick_slider">
+        {% for slider in sliders %}
+        <div class="single_iteam"> <a href=""> <img src="{{slider.image.url}}" alt=""></a>
+          <div class="slider_article">
+            <h2><a class="slider_tittle" href="">{{slider.title}}</a></h2>
+            <p>{{slider.details}}</p>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- <div class="single_iteam"> <a href="pages/single_page.html"> <img src="{% static 'website/images/slider_img2.jpg' %}" alt=""></a>
+          <div class="slider_article">
+            <h2><a class="slider_tittle" href="pages/single_page.html">Fusce eu nulla semper porttitor felis sit amet</a></h2>
+            <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui...</p>
+          </div>
+        </div>
+        <div class="single_iteam"> <a href="pages/single_page.html"> <img src="{% static 'website/images/slider_img3.jpg' %}" alt=""></a>
+          <div class="slider_article">
+            <h2><a class="slider_tittle" href="pages/single_page.html">Fusce eu nulla semper porttitor felis sit amet</a></h2>
+            <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui...</p>
+          </div>
+        </div>
+        <div class="single_iteam"> <a href="pages/single_page.html"> <img src="{% static 'website/images/slider_img1.jpg' %}" alt=""></a>
+          <div class="slider_article">
+            <h2><a class="slider_tittle" href="pages/single_page.html">Fusce eu nulla semper porttitor felis sit amet</a></h2>
+            <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui...</p>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="latest_post">
+        <h2><span>Latest post</span></h2>
+        <div class="latest_post_container">
+          <div id="prev-button"><i class="fa fa-chevron-up"></i></div>
+          <ul class="latest_postnav">
+            {% for video in videos %}
+              <li>
+                <div class="media wow fadeInDown"> <a href="{% url 'video_detail' pk=video.pk %}" class="media-left"> <img alt="" src="{{video.image.url}}"> </a>
+                  <div class="media-body"> <a href="{% url 'video_detail' pk=video.pk %}" class="catg_title"> {{video.title}}</a> </div>
+                </div>
+              </li>
+              {% endfor %}
+            <!-- <li>
+              <div class="media"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'website/images/post_img1.jpg' %}"> </a>
+                <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
+              </div>
+            </li>
+            <li>
+              <div class="media"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'website/images/post_img1.jpg' %}"> </a>
+                <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
+              </div>
+            </li>
+            <li>
+              <div class="media"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'website/images/post_img1.jpg' %}"> </a>
+                <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
+              </div>
+            </li>
+            <li>
+              <div class="media"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="{% static 'website/images/post_img1.jpg' %}"> </a>
+                <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
+              </div>
+            </li> -->
+          </ul>
+          <div id="next-button"><i class="fa  fa-chevron-down"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="add_banner" style="width: 100% !important;"><a href="#"><img src="{{ rectangle_ad2.image.url }}" alt=""></a></div>
+<section id="contentSection">
+  <div class="row">
+    <div class="col-lg-8">
+          {% for category_elem in categories %}
+      <div class="row">
+        <div class="single_sidebar wow fadeInDown">
+        <h2><span>{{category_elem.name}}</span></h2>
+        </div>
+          {% for subcategory_elem in category_elem.subcategory_set.all %}
+          {% for video in subcategory_elem.video_set.all %}
+          <div class="col-lg-6">
+            <a href="{% url 'video_detail' pk=video.pk %}">
+            <image width="300" src="{{video.image.url}}"/>
+            </a>
+          </div>
+        {% endfor %}
+        {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <aside class="right_content">
+        {% for box_ad in box_ads %}
+        <div class="single_sidebar wow fadeInDown">
+          <h2><span>Sponsor</span></h2>
+          <a class="sideAdd" href="{{box_ad.social_url}}" target="_blank">
+            <img src="{{box_ad.image.url}}" alt="{{box_ad.title}}">
+          </a>
+           </div>
+        {% endfor %}
+        <div class="single_sidebar">
+          <h2><span>Popular Videos</span></h2>
+          <ul class="spost_nav">
+          {% for video in videos %}
+            <li>
+              <div class="media wow fadeInDown"> <a href="{% url 'video_detail' pk=video.pk %}" class="media-left"> <img alt="" src="{{video.image.url}}"> </a>
+                <div class="media-body"> <a href="{% url 'video_detail' pk=video.pk %}" class="catg_title"> {{video.title}}</a> </div>
+              </div>
+            </li>
+
+            {% endfor %}
+          </ul>
+        </div>
+
+
+
+      </aside>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+
+{% extends "website/base.html" %}
+<!-- {% load static %} -->
+
+{% block title %}About Us {% endblock%}
+
+{% block content %}
+<section id="contentSection">
+  <div class="row">
+          <div class="add_banner" style="width: 100% !important;"><a href="{% url 'index' %}"><img src="{{ rectangle_ad2.image.url }}" alt=""></a></div>
+<div class="col-lg-8 col-md-8 col-sm-8" >
+<br>
+<h1 style= "color:#000000"><span>{{content.title}}</span></h1>
+<br>
+<p>{{content.details}}</p>
+</div>
+<div class="col-lg-4 col-md-4 col-sm-4">
+  <aside class="right_content">
+    {% for box_ad in box_ads %}
+    <div class="single_sidebar wow fadeInDown">
+      <h2><span>Sponsor</span></h2>
+      <a class="sideAdd" href="{{box_ad.social_url}}" target="_blank">
+        <img src="{{box_ad.image.url}}" alt="{{box_ad.title}}">
+      </a>
+       </div>
+    {% endfor %}
+
+  </aside>
+</div>
+
+<div class="col-lg-8 col-md-4 col-sm-4">
+  <aside class="left_content">
+
+  </aside>
+</div>
+</div>
+</section>
+{% endblock %}
